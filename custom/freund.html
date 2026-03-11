@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+  
+  <!-- ALL CREDIT GOES TO https://codepen.io/AllThingsSmitty/pen/JJavZN
+   You didn't expect me to code this myself did you? -->
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<title>Freund Countdown</title>
+<style>
+/* general styling */
+:root {
+  --smaller: .75;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  align-items: center;
+  background-color: #ffd54f;
+  display: flex;
+  font-family: -apple-system, 
+    BlinkMacSystemFont, 
+    "Segoe UI", 
+    Roboto, 
+    Oxygen-Sans, 
+    Ubuntu, 
+    Cantarell, 
+    "Helvetica Neue", 
+    sans-serif;
+}
+
+.container {
+  color: #333;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: .125rem;
+  text-transform: uppercase;
+}
+
+li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+li span {
+  display: block;
+  font-size: 4.5rem;
+}
+
+.emoji {
+  display: none;
+  padding: 1rem;
+}
+
+.emoji span {
+  font-size: 4rem;
+  padding: 0 .5rem;
+}
+
+@media all and (max-width: 768px) {
+  h1 {
+    font-size: calc(1.5rem * var(--smaller));
+  }
+  
+  li {
+    font-size: calc(1.125rem * var(--smaller));
+  }
+  
+  li span {
+    font-size: calc(3.375rem * var(--smaller));
+  }
+}
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="headline">Freund Countdown</h1>
+        <div id="countdown">
+          <ul>
+            <li><span id="hours"></span>Hours</li>
+            <li><span id="minutes"></span>Minutes</li>
+            <li><span id="seconds"></span>Seconds</li>
+          </ul>
+        </div>
+        <div id="content" class="emoji">
+          <span>Wohoo!</span>
+        </div>
+      </div>
+<script type="text/javascript">
+(function () {
+  const second = 1000,
+    minute = second * 60,
+    hour = minute * 60;
+
+  // Target: Saturday, 14 March 2026 at 07:27:00
+  const countDown = new Date("2026-03-14T07:27:00").getTime(),
+    x = setInterval(function () {
+      const now = new Date().getTime(),
+        distance = countDown - now;
+
+      const totalHours = Math.floor(distance / hour);
+      const mins = Math.floor((distance % hour) / minute);
+      const secs = Math.floor((distance % minute) / second);
+
+      document.getElementById("hours").innerText = totalHours;
+      document.getElementById("minutes").innerText = mins;
+      document.getElementById("seconds").innerText = secs;
+
+      // Show message when countdown reaches zero
+      if (distance < 0) {
+        document.getElementById("headline").innerText = "";
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("content").style.display = "block";
+        clearInterval(x);
+      }
+    }, 1000);
+})();
+
+</script>
+</body>
+</html>
